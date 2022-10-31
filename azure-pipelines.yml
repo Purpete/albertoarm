@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'armejemplo'
+    subscriptionId: '3fc95c44-856c-4cf4-bba4-e47a118a15e0'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'albertogrupoarm'
+    location: 'West Europe'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/Purpete/albertoarm/main/CreateWebApp/azuredeploy.json'
+    overrideParameters: '-projectName albertoarm'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
